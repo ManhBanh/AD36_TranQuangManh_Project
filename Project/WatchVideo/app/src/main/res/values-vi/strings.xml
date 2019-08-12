@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Watch Video</string>
+    <string name="categories">Thể loại</string>
+    <string name="hot_videos">Video nóng hổi</string>
+    <string name="mail_us">Gửi mail cho chúng tôi</string>
+    <string name="term_and_conditions">Thời  hạn và điều kiện</string>
+    <string name="version">Phiên bản</string>
+    <string name="votes">Bình chọn</string>
+</resources>

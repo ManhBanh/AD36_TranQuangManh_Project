@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Watch Video</string>
+    <string name="version">Version</string>
+    <string name="term_and_conditions">Term and Conditions</string>
+    <string name="votes">Votes</string>
+    <string name="mail_us">Mail us</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="hot_videos">Hot videos</string>
+    <string name="categories">Categories</string>
+</resources>

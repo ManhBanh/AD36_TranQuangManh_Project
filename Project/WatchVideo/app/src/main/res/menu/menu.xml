@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group  android:checkableBehavior="single">
+        <item android:id="@+id/mnVersion"
+            android:icon="@drawable/ic__version"
+            android:title="@string/version"/>
+        <item android:id="@+id/mnTermAndConditions"
+            android:icon="@drawable/ic_term_and_conditions"
+            android:title="@string/term_and_conditions"/>
+        <item android:id="@+id/mnVotes"
+            android:icon="@drawable/ic_votes"
+            android:title="@string/votes"/>
+        <item android:id="@+id/mnMailUs"
+            android:icon="@drawable/ic_mail_us"
+            android:title="@string/mail_us"/>
+    </group>
+
+</menu>
