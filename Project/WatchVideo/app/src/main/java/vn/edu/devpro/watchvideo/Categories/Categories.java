@@ -1,4 +1,4 @@
-package vn.edu.devpro.watchvideo;
+package vn.edu.devpro.watchvideo.Categories;
 
 public class Categories {
     private String id, title, thumb;
@@ -16,23 +16,11 @@ public class Categories {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getThumb() {
         return thumb;
-    }
-
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
     }
 }

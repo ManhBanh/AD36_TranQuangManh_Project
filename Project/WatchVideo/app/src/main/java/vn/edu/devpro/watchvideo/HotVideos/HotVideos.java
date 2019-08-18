@@ -1,4 +1,4 @@
-package vn.edu.devpro.watchvideo;
+package vn.edu.devpro.watchvideo.HotVideos;
 
 import java.io.Serializable;
 

@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import vn.edu.devpro.watchvideo.Categories.CategoriesFragment;
+import vn.edu.devpro.watchvideo.HotVideos.HotVideos;
+import vn.edu.devpro.watchvideo.HotVideos.HotVideosFragment;
 import vn.edu.devpro.watchvideo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements HotVideosFragment.IOnClickObject{

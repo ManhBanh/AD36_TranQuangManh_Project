@@ -1,4 +1,4 @@
-package vn.edu.devpro.watchvideo;
+package vn.edu.devpro.watchvideo.HotVideos;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import vn.edu.devpro.watchvideo.R;
 
 public class HotVideosFragment extends Fragment {
     private static final String TAG = "HotVideosFragment";

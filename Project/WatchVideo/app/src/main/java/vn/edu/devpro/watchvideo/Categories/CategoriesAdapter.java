@@ -1,4 +1,4 @@
-package vn.edu.devpro.watchvideo;
+package vn.edu.devpro.watchvideo.Categories;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import vn.edu.devpro.watchvideo.R;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Viewholder> {
 
