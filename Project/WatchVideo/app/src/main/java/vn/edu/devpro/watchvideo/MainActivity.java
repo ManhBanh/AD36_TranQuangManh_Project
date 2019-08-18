@@ -1,27 +1,24 @@
 package vn.edu.devpro.watchvideo;
 
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.concurrent.ExecutionException;
 
 import vn.edu.devpro.watchvideo.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HotVideosFragment.IOnClickObject{
     ActivityMainBinding activityMainBinding;
     ActionBarDrawerToggle toggle;
     public static String jSon = "";
@@ -72,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.d(TAG, "getFragment: "+ e.getMessage());
         }
+    }
+
+    @Override
+    public void onClickObject(HotVideos hotVideos) {
+        Intent intent = new Intent(getBaseContext(), WatchActivity.class);
+        intent.putExtra("hotvideos", hotVideos);
+        startActivity(intent);
     }
 
     class getProduct extends AsyncTask<Void, Void, Void>{
