@@ -1,5 +1,6 @@
 package vn.edu.devpro.watchvideo.Categories;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,11 @@ public class CategoriesFragment extends Fragment {
     CategoriesAdapter categoriesAdapter;
     RecyclerView rvCategories;
 
+    IOnClickItemCategory iOnClickItemCategory;
+    public interface IOnClickItemCategory{
+        public void onClickItemCategory(Categories categories);
+    }
+
     public static CategoriesFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -54,6 +60,11 @@ public class CategoriesFragment extends Fragment {
 
         public GetProduct(String newURL) {
             this.newURL = newURL;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
 
         @Override
@@ -94,6 +105,30 @@ public class CategoriesFragment extends Fragment {
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 1, RecyclerView.VERTICAL, false);
             rvCategories.setLayoutManager(layoutManager);
             rvCategories.setAdapter(categoriesAdapter);
+
+            categoriesAdapter.setiOnClickCategories(new IOnClickCategories() {
+                @Override
+                public void onClick(Categories categories) {
+                    iOnClickItemCategory.onClickItemCategory(categories);
+                }
+            });
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof IOnClickItemCategory){
+            iOnClickItemCategory = (IOnClickItemCategory)context;
+        }
+        else{
+            throw new RuntimeException(context.toString());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        iOnClickItemCategory = null;
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background_color"
+    android:orientation="vertical"
+    tools:context=".ItemCategory.ItemCategoryActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toobarColor">
+
+        <Button
+            android:id="@+id/btnBackFromItemCategoryActivity"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:background="@drawable/ic_arrow_back_white" />
+
+        <TextView
+            android:id="@+id/tvCategoryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/trang"
+            android:textSize="@dimen/_13sdp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItemCategory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

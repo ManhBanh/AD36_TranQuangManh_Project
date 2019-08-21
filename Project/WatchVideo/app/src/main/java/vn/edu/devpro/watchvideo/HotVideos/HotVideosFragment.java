@@ -23,6 +23,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import vn.edu.devpro.watchvideo.Define;
 import vn.edu.devpro.watchvideo.R;
 
 public class HotVideosFragment extends Fragment {
@@ -50,7 +51,7 @@ public class HotVideosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hot_videos, container, false);
-        new GetProduct("https://demo5639557.mockable.io/getVideoHot").execute();
+        new GetProduct(Define.HOT_VIDEO_URL).execute();
         recyclerView = view.findViewById(R.id.rvHotVideos);
         hotVideosArrayList = new ArrayList<>();
         return view;
@@ -65,7 +66,6 @@ public class HotVideosFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute();
         }
 

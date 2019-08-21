@@ -1,7 +1,10 @@
 package vn.edu.devpro.watchvideo.Categories;
 
-public class Categories {
+import java.io.Serializable;
+
+public class Categories implements Serializable {
     private String id, title, thumb;
+//    private ArrayList<ItemCategory> itemCategoryArrayList;
 
     public Categories() {
     }
@@ -10,6 +13,7 @@ public class Categories {
         this.id = id;
         this.title = title;
         this.thumb = thumb;
+//        this.itemCategoryArrayList = itemCategoryArrayList;
     }
 
     public String getId() {
@@ -23,4 +27,8 @@ public class Categories {
     public String getThumb() {
         return thumb;
     }
+
+//    public ArrayList<ItemCategory> getItemCategoryArrayList() {
+//        return itemCategoryArrayList;
+//    }
 }

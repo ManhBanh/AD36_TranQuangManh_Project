@@ -1,7 +1,6 @@
 package vn.edu.devpro.watchvideo;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,19 +11,19 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
+import vn.edu.devpro.watchvideo.Categories.Categories;
 import vn.edu.devpro.watchvideo.Categories.CategoriesFragment;
 import vn.edu.devpro.watchvideo.HotVideos.HotVideos;
 import vn.edu.devpro.watchvideo.HotVideos.HotVideosFragment;
+import vn.edu.devpro.watchvideo.HotVideos.WatchActivity;
+import vn.edu.devpro.watchvideo.ItemCategory.ItemCategoryActivity;
 import vn.edu.devpro.watchvideo.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements HotVideosFragment.IOnClickObject{
+public class MainActivity extends AppCompatActivity implements HotVideosFragment.IOnClickObject,
+        CategoriesFragment.IOnClickItemCategory {
+
     ActivityMainBinding activityMainBinding;
     ActionBarDrawerToggle toggle;
-    public static String jSon = "";
     private static final String TAG = "MainActivity";
 
     @Override
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
         activityMainBinding.drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        getFragment(HotVideosFragment.newInstance());
         activityMainBinding.tvHotVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
         });
     }
 
+
     @Override
     public void onBackPressed() {
         if (activityMainBinding.drawer.isDrawerOpen(GravityCompat.START)) {
@@ -63,14 +64,14 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
         }
     }
 
-    public void getFragment(Fragment fragment){
+    public void getFragment(Fragment fragment) {
         try {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "getFragment: "+ e.getMessage());
+            Log.d(TAG, "getFragment: " + e.getMessage());
         }
     }
 
@@ -81,40 +82,10 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
         startActivity(intent);
     }
 
-    class getProduct extends AsyncTask<Void, Void, Void>{
-        String urlNew, result = "";
-
-        public getProduct(String urlNew) {
-            this.urlNew = urlNew;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                URL url = new URL(urlNew);
-                URLConnection urlConnection = url.openConnection();
-                InputStream inputStream = urlConnection.getInputStream();
-                int byteCharacter;
-                while((byteCharacter = inputStream.read()) != -1){
-                    result += (char)byteCharacter;
-                }
-                Log.d(TAG, "doInBackground: "+ result);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            jSon = result;
-        }
+    @Override
+    public void onClickItemCategory(Categories categories) {
+        Intent intent = new Intent(getBaseContext(), ItemCategoryActivity.class);
+        intent.putExtra("itemcategory", categories);
+        startActivity(intent);
     }
 }

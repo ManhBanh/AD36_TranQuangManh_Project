@@ -48,6 +48,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.imgThumb);
         holder.tvTitle.setText(categories.getTitle());
+        holder.imgThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iOnClickCategories.onClick(categories);
+            }
+        });
     }
 
     @Override

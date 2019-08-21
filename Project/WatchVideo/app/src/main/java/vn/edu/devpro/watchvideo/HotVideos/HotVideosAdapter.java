@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class HotVideosAdapter extends RecyclerView.Adapter<HotVideosAdapter.View
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.imgAvatar);
         holder.tvTitle.setText(hotVideos.getTitle());
-        holder.tvAritst_Name.setText(hotVideos.getArtist_name());
+        holder.tvAritst_Name.setText("Feliks");
         holder.tvDate_Published.setText(hotVideos.getDate_published());
 
         holder.llHotVideos.setOnClickListener(new View.OnClickListener() {

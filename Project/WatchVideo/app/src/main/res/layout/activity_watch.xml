@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".WatchActivity">
+    tools:context=".HotVideos.WatchActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbWatchHotVideos"
@@ -17,18 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
-            android:background="@drawable/ic_arrow_back_white" />
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_13sdp"
+                android:layout_height="@dimen/_13sdp"
+                android:background="@drawable/ic_arrow_back_white" />
 
             <TextView
                 android:id="@+id/tvTitleHotVideos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_13sdp"
-                android:textColor="@color/trang"/>
+                android:textColor="@color/trang"
+                android:textSize="@dimen/_13sdp" />
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>

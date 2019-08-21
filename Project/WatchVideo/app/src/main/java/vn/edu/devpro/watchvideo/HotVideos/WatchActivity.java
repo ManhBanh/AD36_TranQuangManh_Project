@@ -1,4 +1,4 @@
-package vn.edu.devpro.watchvideo;
+package vn.edu.devpro.watchvideo.HotVideos;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -13,7 +13,8 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import vn.edu.devpro.watchvideo.HotVideos.HotVideos;
+import vn.edu.devpro.watchvideo.MainActivity;
+import vn.edu.devpro.watchvideo.R;
 
 public class WatchActivity extends AppCompatActivity {
     VideoView videoView;
