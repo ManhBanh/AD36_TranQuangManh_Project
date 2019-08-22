@@ -1,5 +1,6 @@
 package vn.edu.devpro.watchvideo.ItemCategory;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,7 +49,6 @@ public class ItemCategoryActivity extends AppCompatActivity {
         tvCategoryTitle = findViewById(R.id.tvCategoryTitle);
         rvItemCategory = findViewById(R.id.rvItemCategory);
 
-        itemCategoryArrayList = new ArrayList<>();
 
         categories = (Categories) getIntent().getSerializableExtra("itemcategory");
         tvCategoryTitle.setText(categories.getTitle());
@@ -75,7 +75,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
                 URLConnection connection = url.openConnection();
                 InputStream inputStream = connection.getInputStream();
                 int byteCharacter;
-                while ((byteCharacter = inputStream.read()) != 1) {
+                while ((byteCharacter = inputStream.read()) != -1) {
                     result += (char) byteCharacter;
                 }
                 Log.d(TAG, "doInBackground: " + result);
@@ -90,6 +90,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             try {
+                itemCategoryArrayList = new ArrayList<>();
                 JSONArray jsonA_ItemCategory = new JSONArray(result);
                 for (int i = 0; i < jsonA_ItemCategory.length(); i++) {
                     JSONObject jsonO_ItemCategory = jsonA_ItemCategory.getJSONObject(i);
@@ -107,6 +108,16 @@ public class ItemCategoryActivity extends AppCompatActivity {
             itemCategoryAdapter = new ItemCategoryAdapter(itemCategoryArrayList, getBaseContext());
             rvItemCategory.setLayoutManager(layoutManager);
             rvItemCategory.setAdapter(itemCategoryAdapter);
+
+            itemCategoryAdapter.setiOnClickItemCategory(new IOnClickItemCategory() {
+                @Override
+                public void onClick(ItemCategory itemCategory) {
+                    Intent intent = new Intent(getBaseContext(), WatchItemCategory.class);
+                    intent.putExtra("videoitemcategory", itemCategory);
+                    intent.putExtra("itemCategoryArrayList", itemCategoryArrayList);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

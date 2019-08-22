@@ -85,14 +85,4 @@ public class WatchActivity extends AppCompatActivity {
         });
 
     }
-
-    // Tìm ID ứng với tên của file nguồn (Trong thư mục raw).
-//    public int getRawResIdByName(String resName) {
-//        String pkgName = this.getPackageName();
-//
-//        // Trả về 0 nếu không tìm thấy.
-//        int resID = this.getResources().getIdentifier(resName, "raw", pkgName);
-//        Log.i("AndroidVideoView", "Res Name: " + resName + "==> Res ID = " + resID);
-//        return resID;
-//    }
 }

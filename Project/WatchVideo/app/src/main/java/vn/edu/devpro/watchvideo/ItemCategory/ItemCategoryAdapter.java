@@ -26,7 +26,7 @@ public class ItemCategoryAdapter extends RecyclerView.Adapter<ItemCategoryAdapte
     public ItemCategoryAdapter(ArrayList<ItemCategory> itemCategoryArrayList, Context context) {
         this.itemCategoryArrayList = itemCategoryArrayList;
         this.context = context;
-    }
+}
 
     public void setiOnClickItemCategory(IOnClickItemCategory iOnClickItemCategory) {
         this.iOnClickItemCategory = iOnClickItemCategory;

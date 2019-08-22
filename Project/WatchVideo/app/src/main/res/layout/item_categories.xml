@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/title_of_categories_shape"
         android:textColor="@color/den"
         android:textSize="@dimen/_20sdp" />

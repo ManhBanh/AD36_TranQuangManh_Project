@@ -1,6 +1,8 @@
 package vn.edu.devpro.watchvideo.ItemCategory;
 
-public class ItemCategory {
+import java.io.Serializable;
+
+public class ItemCategory implements Serializable {
     private String id, title, avatar, file_mp4, date_published;
 
     public ItemCategory() {
