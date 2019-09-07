@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ItemCategory.WatchItemCategory">
+    android:id="@+id/llTong"
+    tools:context=".ItemCategory.WatchItemCategoryActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbWatchItemCategory"

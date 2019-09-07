@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import vn.edu.devpro.watchvideo.Categories.Categories;
 import vn.edu.devpro.watchvideo.Categories.CategoriesFragment;
 import vn.edu.devpro.watchvideo.HotVideos.HotVideos;
 import vn.edu.devpro.watchvideo.HotVideos.HotVideosFragment;
-import vn.edu.devpro.watchvideo.HotVideos.WatchActivity;
+import vn.edu.devpro.watchvideo.HotVideos.WatchHotVideosActivity;
 import vn.edu.devpro.watchvideo.ItemCategory.ItemCategoryActivity;
 import vn.edu.devpro.watchvideo.databinding.ActivityMainBinding;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
 
     ActivityMainBinding activityMainBinding;
     ActionBarDrawerToggle toggle;
+
     private static final String TAG = "MainActivity";
 
     @Override
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements HotVideosFragment
 
     @Override
     public void onClickObject(HotVideos hotVideos) {
-        Intent intent = new Intent(getBaseContext(), WatchActivity.class);
+        Intent intent = new Intent(getBaseContext(), WatchHotVideosActivity.class);
         intent.putExtra("hotvideos", hotVideos);
         startActivity(intent);
     }

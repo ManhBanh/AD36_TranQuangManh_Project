@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,7 @@ public class CategoriesFragment extends Fragment {
     ArrayList<Categories> categoriesArrayList;
     CategoriesAdapter categoriesAdapter;
     RecyclerView rvCategories;
+    ProgressBar pbCategories;
 
     IOnClickItemCategory iOnClickItemCategory;
     public interface IOnClickItemCategory{
@@ -52,6 +54,8 @@ public class CategoriesFragment extends Fragment {
         new GetProduct(Define.get_Categories_URL).execute();
         rvCategories = view.findViewById(R.id.rvCategories);
         categoriesArrayList = new ArrayList<>();
+        pbCategories = view.findViewById(R.id.pbCategories);
+        pbCategories.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -88,7 +92,7 @@ public class CategoriesFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            pbCategories.setVisibility(View.INVISIBLE);
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for(int i = 0; i < jsonArray.length(); i++){

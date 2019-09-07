@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,9 @@ import vn.edu.devpro.watchvideo.R;
 
 public class HotVideosFragment extends Fragment {
     private static final String TAG = "HotVideosFragment";
+
+    ProgressBar pbLoadingHotVideos;
+
     RecyclerView recyclerView;
     HotVideosAdapter hotVideosAdapter;
     ArrayList<HotVideos> hotVideosArrayList;
@@ -53,7 +57,9 @@ public class HotVideosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hot_videos, container, false);
         new GetProduct(Define.HOT_VIDEO_URL).execute();
         recyclerView = view.findViewById(R.id.rvHotVideos);
+        pbLoadingHotVideos = view.findViewById(R.id.pbLoadingHotVideos);
         hotVideosArrayList = new ArrayList<>();
+        pbLoadingHotVideos.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -89,7 +95,7 @@ public class HotVideosFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            pbLoadingHotVideos.setVisibility(View.GONE);
             try {
                 JSONArray jsonA_Hot_Videos = new JSONArray(result);
                 for (int i = 0; i < jsonA_Hot_Videos.length(); i++) {
@@ -106,7 +112,8 @@ public class HotVideosFragment extends Fragment {
                 e.printStackTrace();
             }
             hotVideosAdapter = new HotVideosAdapter(hotVideosArrayList, getContext());
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),
+                    2, RecyclerView.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(hotVideosAdapter);
 

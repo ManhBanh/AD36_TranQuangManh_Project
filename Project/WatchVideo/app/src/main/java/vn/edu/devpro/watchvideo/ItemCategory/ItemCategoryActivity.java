@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -112,7 +110,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
             itemCategoryAdapter.setiOnClickItemCategory(new IOnClickItemCategory() {
                 @Override
                 public void onClick(ItemCategory itemCategory) {
-                    Intent intent = new Intent(getBaseContext(), WatchItemCategory.class);
+                    Intent intent = new Intent(getBaseContext(), WatchItemCategoryActivity.class);
                     intent.putExtra("videoitemcategory", itemCategory);
                     intent.putExtra("itemCategoryArrayList", itemCategoryArrayList);
                     startActivity(intent);

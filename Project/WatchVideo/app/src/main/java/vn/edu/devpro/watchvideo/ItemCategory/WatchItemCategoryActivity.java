@@ -1,30 +1,34 @@
 package vn.edu.devpro.watchvideo.ItemCategory;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
 import vn.edu.devpro.watchvideo.R;
 
-public class WatchItemCategory extends AppCompatActivity {
+public class WatchItemCategoryActivity extends AppCompatActivity {
     VideoView vvWatchItemCategory;
     MediaController mediaController;
 
     Toolbar tbWatchItemCategory;
     TextView tvItemCategoryTitle;
 
+    LinearLayout llTong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_item_category);
         this.setTitle(null);
+        llTong = findViewById(R.id.llTong);
 
         tbWatchItemCategory = findViewById(R.id.tbWatchItemCategory);
         tvItemCategoryTitle = findViewById(R.id.tvItemCategoryTitle);
@@ -35,12 +39,11 @@ public class WatchItemCategory extends AppCompatActivity {
         ArrayList<ItemCategory> itemCategoryArrayList = (ArrayList<ItemCategory>) getIntent().getSerializableExtra("itemCategoryArrayList");
 
         setSupportActionBar(tbWatchItemCategory);
-        tvItemCategoryTitle.setText(String.valueOf(itemCategoryArrayList.size()));
+        tvItemCategoryTitle.setText(llTong.getHeight() + " " + llTong.getWidth());
         if(mediaController == null){
             mediaController = new MediaController(this);
             vvWatchItemCategory.setMediaController(mediaController);
             mediaController.setAnchorView(vvWatchItemCategory);
-            
         }
 
         try{
