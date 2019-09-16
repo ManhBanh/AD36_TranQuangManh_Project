@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import vn.edu.devpro.watchvideo.MainActivity;
 import vn.edu.devpro.watchvideo.R;
 
-public class WatchHotVideosActivity extends AppCompatActivity {
+public class WatchHotVideosActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     private static final String STATE_COUNTER = "counter";
     VideoView videoView;
     //    MediaController mediaController;
@@ -35,14 +38,22 @@ public class WatchHotVideosActivity extends AppCompatActivity {
     ImageView imgPlay;
     TextView tvTitleHotVideos, tvStart, tvDuration;
     SeekBar sbHotVideos;
-    ProgressBar pbLoadingWatchHotVideos;
+    Boolean check = true;
+
+    RelativeLayout rlController;
+    Handler handler;
+    Timer timer;
+    Runnable runnable;
+    GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_hot_videos);
 
-        if(savedInstanceState != null){
+        gestureDetector = new GestureDetector(WatchHotVideosActivity.this, WatchHotVideosActivity.this);
+
+        if (savedInstanceState != null) {
             counter = savedInstanceState.getInt(STATE_COUNTER, 0);
         }
 
@@ -54,26 +65,43 @@ public class WatchHotVideosActivity extends AppCompatActivity {
         tvDuration = findViewById(R.id.tvDuration);
         sbHotVideos = findViewById(R.id.sbHotVideos);
         videoView = findViewById(R.id.vvWatch);
+        rlController = findViewById(R.id.rlController);
 
         setSupportActionBar(tbWatchHotVideos);
 
         hotVideos = (HotVideos) getIntent().getSerializableExtra("hotvideos");
 
-//         Tạo bộ điều khiển
-//        if (mediaController == null) {
-//            mediaController = new MediaController(WatchHotVideosActivity.this);
-//
-//            // Neo vị trí của MediaController với VideoView.
-//            mediaController.setAnchorView(videoView);
-//
-//            // Sét đặt bộ điều khiển cho VideoView.
-//            videoView.setMediaController(mediaController);
-//        }
-
         createVideoView();
         videoView.start();
         updateTimeOnSeekBar();
-        tvDuration.setText(String.valueOf(videoView.getDuration()));
+
+        if (check == true) {
+            hideVideoControllerAndToolBar();
+            check = false;
+        }
+
+//        videoView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (check == true) {
+//                    rlController.setVisibility(View.GONE);
+//                    tbWatchHotVideos.setVisibility(View.GONE);
+//                    check = false;
+//                } else {
+//                    rlController.setVisibility(View.VISIBLE);
+//                    tbWatchHotVideos.setVisibility(View.VISIBLE);
+//                    check = true;
+//                }
+//                if (rlController.getVisibility() == View.VISIBLE) {
+//                    hideVideoControllerAndToolBar();
+//                    check = false;
+//                }
+//                return false;
+//            }
+//
+
+//        });
+
 
         imgPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +113,7 @@ public class WatchHotVideosActivity extends AppCompatActivity {
                     videoView.start();
                     imgPlay.setImageResource(R.drawable.ic_pause_white_24dp);
                 }
-                setDuration();
+//                setDuration();
                 updateTimeOnSeekBar();
             }
         });
@@ -114,24 +142,6 @@ public class WatchHotVideosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        videoView.requestFocus();
-//        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mediaPlayer) {
-//                videoView.seekTo(position);
-//                if (position == 0) {
-//                    videoView.start();
-//                }
-//                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-//                    @Override
-//                    public void onVideoSizeChanged(MediaPlayer mediaPlayer, int width, int height) {
-//                        mediaController.setAnchorView(videoView);
-//                    }
-//                });
-//            }
-//        });
-
     }
 
     private void createVideoView() {
@@ -152,12 +162,34 @@ public class WatchHotVideosActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-                tvStart.setText(simpleDateFormat.format(videoView.getCurrentPosition()));
-                sbHotVideos.setProgress(videoView.getCurrentPosition());
-                handler.postDelayed(this, 500);
+                if (videoView != null) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                    tvStart.setText(simpleDateFormat.format(videoView.getCurrentPosition()));
+                    sbHotVideos.setProgress(videoView.getCurrentPosition());
+                    setDuration();
+                    handler.postDelayed(this, 500);
+                }
             }
         }, 500);
+    }
+
+    private void hideVideoControllerAndToolBar() {
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                timer.cancel();
+                rlController.setVisibility(View.GONE);
+                tbWatchHotVideos.setVisibility(View.GONE);
+            }
+        };
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+            }
+        }, 3000, 9000);
     }
 
     @Override
@@ -168,4 +200,76 @@ public class WatchHotVideosActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+        if (check == true) {
+            rlController.setVisibility(View.GONE);
+            tbWatchHotVideos.setVisibility(View.GONE);
+            check = false;
+        } else {
+            rlController.setVisibility(View.VISIBLE);
+            tbWatchHotVideos.setVisibility(View.VISIBLE);
+            check = true;
+        }
+        if (rlController.getVisibility() == View.VISIBLE) {
+            hideVideoControllerAndToolBar();
+            check = false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent motionEvent) {
+        if (videoView.isPlaying()) {
+            videoView.pause();
+            imgPlay.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+        } else {
+            videoView.start();
+            imgPlay.setImageResource(R.drawable.ic_pause_white_24dp);
+        }
+//                setDuration();
+        updateTimeOnSeekBar();
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
 }

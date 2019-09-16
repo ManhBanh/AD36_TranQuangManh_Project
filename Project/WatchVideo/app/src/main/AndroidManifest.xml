@@ -14,7 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ItemCategory.WatchItemCategoryActivity"></activity>
-        <activity android:name=".ItemCategory.ItemCategoryActivity" />
+        <activity android:name=".ItemCategory.ItemCategoryActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".HotVideos.WatchHotVideosActivity"
             android:configChanges="orientation|screenSize"
@@ -28,11 +35,11 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
     </application>
 
