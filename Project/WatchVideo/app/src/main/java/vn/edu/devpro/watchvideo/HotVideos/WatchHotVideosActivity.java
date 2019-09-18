@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -35,12 +36,12 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
 
     Toolbar tbWatchHotVideos;
     Button btnBack;
-    ImageView imgPlay;
+    ImageView imgPlay, imgReplay10, imgForward10;
     TextView tvTitleHotVideos, tvStart, tvDuration;
     SeekBar sbHotVideos;
     Boolean check = true;
 
-    RelativeLayout rlController;
+    RelativeLayout rlController, rlTimeController;
     Handler handler;
     Timer timer;
     Runnable runnable;
@@ -66,6 +67,9 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
         sbHotVideos = findViewById(R.id.sbHotVideos);
         videoView = findViewById(R.id.vvWatch);
         rlController = findViewById(R.id.rlController);
+        rlTimeController = findViewById(R.id.rlTimeController);
+        imgReplay10 = findViewById(R.id.imgReplay10);
+        imgForward10 = findViewById(R.id.imgForward10);
 
         setSupportActionBar(tbWatchHotVideos);
 
@@ -80,29 +84,6 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
             check = false;
         }
 
-//        videoView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (check == true) {
-//                    rlController.setVisibility(View.GONE);
-//                    tbWatchHotVideos.setVisibility(View.GONE);
-//                    check = false;
-//                } else {
-//                    rlController.setVisibility(View.VISIBLE);
-//                    tbWatchHotVideos.setVisibility(View.VISIBLE);
-//                    check = true;
-//                }
-//                if (rlController.getVisibility() == View.VISIBLE) {
-//                    hideVideoControllerAndToolBar();
-//                    check = false;
-//                }
-//                return false;
-//            }
-//
-
-//        });
-
-
         imgPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +95,27 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
                     imgPlay.setImageResource(R.drawable.ic_pause_white_24dp);
                 }
 //                setDuration();
+                updateTimeOnSeekBar();
+            }
+        });
+
+        /**
+         * Tua thời gian
+         */
+        imgReplay10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sbHotVideos.setProgress(videoView.getCurrentPosition() - 10000);
+                videoView.seekTo(sbHotVideos.getProgress());
+                updateTimeOnSeekBar();
+            }
+        });
+
+        imgForward10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sbHotVideos.setProgress(videoView.getCurrentPosition() + 10000);
+                videoView.seekTo(sbHotVideos.getProgress());
                 updateTimeOnSeekBar();
             }
         });
@@ -157,6 +159,9 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
 
     }
 
+    /**
+     * Cập nhật thời gian trên SeekBar sbHotVideos
+     */
     private void updateTimeOnSeekBar() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -180,6 +185,7 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
             public void run() {
                 timer.cancel();
                 rlController.setVisibility(View.GONE);
+                rlTimeController.setVisibility(View.GONE);
                 tbWatchHotVideos.setVisibility(View.GONE);
             }
         };
@@ -189,7 +195,7 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
             public void run() {
                 handler.post(runnable);
             }
-        }, 3000, 9000);
+        }, 3000, 1000);
     }
 
     @Override
@@ -210,10 +216,12 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
     public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
         if (check == true) {
             rlController.setVisibility(View.GONE);
+            rlTimeController.setVisibility(View.GONE);
             tbWatchHotVideos.setVisibility(View.GONE);
             check = false;
         } else {
             rlController.setVisibility(View.VISIBLE);
+            rlTimeController.setVisibility(View.VISIBLE);
             tbWatchHotVideos.setVisibility(View.VISIBLE);
             check = true;
         }

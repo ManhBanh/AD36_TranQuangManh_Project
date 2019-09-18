@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -20,15 +21,17 @@ import vn.edu.devpro.watchvideo.R;
 
 public class WatchItemCategoryActivity extends AppCompatActivity {
     VideoView vvWatchItemCategory;
-    MediaController mediaController;
+    ItemCategory itemCategory;
 
     Toolbar tbWatchItemCategory;
-    TextView tvItemCategoryTitle;
-
+    TextView tvItemCategoryTitle, tvStart1, tvDuration1;
+    SeekBar sbItemCategory;
 
     RelativeLayout rlTong;
     RelativeLayout rlVideoView;
-    ImageView imgScreenOrientation;
+    ImageView imgScreenOrientation, imgPlay1;
+
+    boolean check, orientationCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,41 +41,54 @@ public class WatchItemCategoryActivity extends AppCompatActivity {
 
         rlTong = findViewById(R.id.rlTong);
         rlVideoView = findViewById(R.id.rlVideoView);
-        imgScreenOrientation = findViewById(R.id.imgScreenOrientation);
 
         tbWatchItemCategory = findViewById(R.id.tbWatchItemCategory);
         tvItemCategoryTitle = findViewById(R.id.tvItemCategoryTitle);
+        imgPlay1 = findViewById(R.id.imgPlay1);
+        tvStart1 = findViewById(R.id.tvStart1);
+        tvDuration1 = findViewById(R.id.tvDuration1);
+        sbItemCategory = findViewById(R.id.sbItemCategory);
+        imgScreenOrientation = findViewById(R.id.imgScreenOrientation);
+
 
         vvWatchItemCategory = findViewById(R.id.vvWatchItemCategory);
 
-        ItemCategory itemCategory = (ItemCategory) getIntent().getSerializableExtra("videoitemcategory");
+        itemCategory = (ItemCategory) getIntent().getSerializableExtra("videoitemcategory");
         ArrayList<ItemCategory> itemCategoryArrayList = (ArrayList<ItemCategory>) getIntent().getSerializableExtra("itemCategoryArrayList");
 
         setSupportActionBar(tbWatchItemCategory);
-        tvItemCategoryTitle.setText(itemCategory.getTitle());
-//        if(mediaController == null){
-//            mediaController = new MediaController(this);
-//            vvWatchItemCategory.setMediaController(mediaController);
-//            mediaController.setAnchorView(vvWatchItemCategory);
-//        }
 
-        try{
-            String path = itemCategory.getFile_mp4();
-            vvWatchItemCategory.setVideoURI(Uri.parse(path));
-            vvWatchItemCategory.start();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        createVideoView();
+        vvWatchItemCategory.start();
 
         imgScreenOrientation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rlVideoView.getLayoutParams();
-                params.width = params.MATCH_PARENT;
-                params.height = params.MATCH_PARENT;
-                rlVideoView.setLayoutParams(params);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                if(orientationCheck == false) {
+                    RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams) rlVideoView.getLayoutParams();
+                    params1.width = params1.MATCH_PARENT;
+                    params1.height = params1.MATCH_PARENT;
+                    rlVideoView.setLayoutParams(params1);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    imgScreenOrientation.setImageResource(R.drawable.ic_fullscreen_exit_white_24dp);
+                    orientationCheck = true;
+                }
+                else{
+                    RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) rlVideoView.getLayoutParams();
+                    params2.width = params2.MATCH_PARENT;
+                    params2.height = R.dimen._179sdp;
+                    rlVideoView.setLayoutParams(params2);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    imgScreenOrientation.setImageResource(R.drawable.ic_fullscreen_white_24dp);
+                    orientationCheck = false;
+                }
             }
         });
+    }
+
+    private void createVideoView() {
+        String path = itemCategory.getFile_mp4();
+        vvWatchItemCategory.setVideoURI(Uri.parse(path));
+        tvItemCategoryTitle.setText(itemCategory.getTitle());
     }
 }

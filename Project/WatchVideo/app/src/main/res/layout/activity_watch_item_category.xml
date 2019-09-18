@@ -4,36 +4,33 @@
     android:id="@+id/rlTong"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ItemCategory.WatchItemCategoryActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tbWatchItemCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/den">
-
-        <TextView
-            android:id="@+id/tvItemCategoryTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/trang"
-            android:textSize="@dimen/_13sdp" />
-    </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/rlVideoView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        android:layout_below="@+id/tbWatchItemCategory"
-        android:orientation="vertical">
+        android:layout_height="@dimen/_179sdp"
+        android:layout_alignParentTop="true">
 
         <VideoView
             android:id="@+id/vvWatchItemCategory"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"/>
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tbWatchItemCategory"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/denmo">
+
+            <TextView
+                android:id="@+id/tvItemCategoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/trang"
+                android:textSize="@dimen/_13sdp" />
+        </androidx.appcompat.widget.Toolbar>
 
         <RelativeLayout
             android:id="@+id/rlController"
@@ -42,7 +39,7 @@
             android:layout_alignParentBottom="true">
 
             <ImageView
-                android:id="@+id/imgPlay"
+                android:id="@+id/imgPlay1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -50,10 +47,10 @@
                 android:src="@drawable/ic_pause_white_24dp" />
 
             <TextView
-                android:id="@+id/tvStart"
+                android:id="@+id/tvStart1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imgPlay"
+                android:layout_toRightOf="@+id/imgPlay1"
                 android:text="00:00"
                 android:textColor="@color/trang" />
 
@@ -61,11 +58,11 @@
                 android:id="@+id/sbItemCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/tvDuration"
-                android:layout_toRightOf="@+id/tvStart" />
+                android:layout_toLeftOf="@id/tvDuration1"
+                android:layout_toRightOf="@+id/tvStart1" />
 
             <TextView
-                android:id="@+id/tvDuration"
+                android:id="@+id/tvDuration1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_5sdp"
@@ -80,9 +77,14 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:src="@drawable/ic_fullscreen_white_24dp" />
-
         </RelativeLayout>
-
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWatchItemCategory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlVideoView"
+        android:background="@color/colorProgressBar" />
 
 </RelativeLayout>
