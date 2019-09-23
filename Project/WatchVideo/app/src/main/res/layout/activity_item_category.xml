@@ -13,16 +13,11 @@
         android:layout_height="wrap_content"
         android:background="@color/toobarColor">
 
-        <Button
-            android:id="@+id/btnBackFromItemCategoryActivity"
-            android:layout_width="@dimen/_13sdp"
-            android:layout_height="@dimen/_13sdp"
-            android:background="@drawable/ic_arrow_back_white" />
-
         <TextView
             android:id="@+id/tvCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_20sdp"
             android:textColor="@color/trang"
             android:textSize="@dimen/_13sdp" />
 
@@ -31,13 +26,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItemCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tbCategory" />
 
     <ProgressBar
         android:id="@+id/pbLoadingItemCategory"
-        android:layout_centerInParent="true"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:theme="@style/ProgressBarTheme"/>
+        android:layout_centerInParent="true"
+        android:theme="@style/ProgressBarTheme" />
 
 </RelativeLayout>

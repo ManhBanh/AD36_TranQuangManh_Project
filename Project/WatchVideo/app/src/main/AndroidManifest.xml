@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ItemCategory.WatchItemCategoryActivity"
-            android:configChanges="orientation|screenSize"></activity>
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ItemCategory.ItemCategoryActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->

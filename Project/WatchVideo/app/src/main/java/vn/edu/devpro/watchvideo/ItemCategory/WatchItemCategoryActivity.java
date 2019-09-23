@@ -179,6 +179,7 @@ public class WatchItemCategoryActivity extends AppCompatActivity {
                     RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) rlVideoView.getLayoutParams();
                     params2.width = params2.MATCH_PARENT;
                     params2.height = (int) 400;
+//                    params2.height = R.dimen._80sdp;
                     rlVideoView.setLayoutParams(params2);
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     imgScreenOrientation.setImageResource(R.drawable.ic_fullscreen_white_24dp);

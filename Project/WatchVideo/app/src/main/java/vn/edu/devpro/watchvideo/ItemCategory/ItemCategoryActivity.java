@@ -23,13 +23,13 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 import vn.edu.devpro.watchvideo.Categories.Categories;
+import vn.edu.devpro.watchvideo.Categories.CategoriesFragment;
 import vn.edu.devpro.watchvideo.Define;
 import vn.edu.devpro.watchvideo.R;
 
 public class ItemCategoryActivity extends AppCompatActivity {
     private static final String TAG = "ItemCategoryActivity";
     Toolbar tbCategory;
-    Button btnBack;
     TextView tvCategoryTitle;
     RecyclerView rvItemCategory;
     ItemCategoryAdapter itemCategoryAdapter;
@@ -46,7 +46,6 @@ public class ItemCategoryActivity extends AppCompatActivity {
         tbCategory = findViewById(R.id.tbCategory);
         setSupportActionBar(tbCategory);
 
-        btnBack = findViewById(R.id.btnBackFromItemCategoryActivity);
         tvCategoryTitle = findViewById(R.id.tvCategoryTitle);
         rvItemCategory = findViewById(R.id.rvItemCategory);
         pbLoadingItemCategory = findViewById(R.id.pbLoadingItemCategory);
