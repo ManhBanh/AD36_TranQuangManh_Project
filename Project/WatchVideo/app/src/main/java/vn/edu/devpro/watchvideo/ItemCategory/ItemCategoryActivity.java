@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
     RecyclerView rvItemCategory;
     ItemCategoryAdapter itemCategoryAdapter;
     Categories categories;
+    ProgressBar pbLoadingItemCategory;
 
     ArrayList<ItemCategory> itemCategoryArrayList;
 
@@ -46,10 +49,11 @@ public class ItemCategoryActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBackFromItemCategoryActivity);
         tvCategoryTitle = findViewById(R.id.tvCategoryTitle);
         rvItemCategory = findViewById(R.id.rvItemCategory);
-
+        pbLoadingItemCategory = findViewById(R.id.pbLoadingItemCategory);
 
         categories = (Categories) getIntent().getSerializableExtra("itemcategory");
         tvCategoryTitle.setText(categories.getTitle());
+        pbLoadingItemCategory.setVisibility(View.VISIBLE);
 
         new GetItemCategory(Define.Get_Item_Category_URL).execute();
     }
@@ -86,7 +90,7 @@ public class ItemCategoryActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            pbLoadingItemCategory.setVisibility(View.GONE);
             try {
                 itemCategoryArrayList = new ArrayList<>();
                 JSONArray jsonA_ItemCategory = new JSONArray(result);

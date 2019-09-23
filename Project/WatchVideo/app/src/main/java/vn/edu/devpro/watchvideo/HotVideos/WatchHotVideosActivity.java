@@ -1,9 +1,12 @@
 package vn.edu.devpro.watchvideo.HotVideos;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +33,6 @@ import vn.edu.devpro.watchvideo.R;
 public class WatchHotVideosActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     private static final String STATE_COUNTER = "counter";
     VideoView videoView;
-    //    MediaController mediaController;
     HotVideos hotVideos;
     int counter;
 
@@ -267,7 +269,12 @@ public class WatchHotVideosActivity extends AppCompatActivity implements Gesture
     }
 
     @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float v, float v1) {
+        sbHotVideos.setProgress(videoView.getCurrentPosition() + (int) (e2.getX() - e1.getX()));
+        videoView.seekTo(sbHotVideos.getProgress());
+        updateTimeOnSeekBar();
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         return false;
     }
 
